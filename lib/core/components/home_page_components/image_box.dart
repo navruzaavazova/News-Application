@@ -13,9 +13,8 @@ class ImageBox extends StatelessWidget {
     return Expanded(
       flex: 3,
       child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(width * 0.05),
-          bottomLeft: Radius.circular(width * 0.05),
+        borderRadius: BorderRadius.all(
+          Radius.circular(width * 0.02),
         ),
         child: CachedNetworkImage(
           height: double.infinity,

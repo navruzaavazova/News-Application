@@ -1,7 +1,4 @@
-
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class DescriptionBox extends StatelessWidget {
   const DescriptionBox(
@@ -16,12 +13,6 @@ class DescriptionBox extends StatelessWidget {
   final String source;
   final String url;
 
-  Future<void> _launchUrl(String url) async {
-    final Uri uri = Uri.parse(url);
-    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-      throw 'Could not launch $url';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,32 +27,30 @@ class DescriptionBox extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            GestureDetector(
-              onTap: () => _launchUrl(url),
-              child: Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: width * 0.034,
+                fontWeight: FontWeight.bold,
+                color: Colors.white
               ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 4),
             Text(
-              'Source: $source', // Добавляем источник
-              style: const TextStyle(
-                fontSize: 12,
-                color: Color.fromARGB(255, 105, 101, 101),
+              'Source: $source',
+              style: TextStyle(
+                fontSize: width * 0.03,
+                color: const Color.fromARGB(255, 163, 155, 155),
               ),
             ),
             const SizedBox(height: 1),
             Text(
               'Published: ${publishedAt.substring(0, 10)}',
-              style: const TextStyle(
-                fontSize: 12,
-                color: Colors.grey,
+              style: TextStyle(
+                fontSize: width * 0.03,
+                color: const Color.fromARGB(255, 208, 203, 203),
               ),
             ),
           ],
