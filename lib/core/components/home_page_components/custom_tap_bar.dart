@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/local/set_parameters.dart';
+import 'package:news_app/core/provider/spider_provider/spider_inheritance/spider_inheritance.dart';
 import 'package:news_app/presentation/main/bloc/news_bloc.dart';
+import 'package:news_app/presentation/main/bloc/news_event.dart';
 
 class CustomTapBar extends StatelessWidget {
   const CustomTapBar({super.key, required this.categories});
@@ -27,10 +29,9 @@ class CustomTapBar extends StatelessWidget {
           tabs: categories.map((category) => Tab(text: category)).toList(),
           onTap: (value) async{
             final selectedCategory = categories[value].toLowerCase();
-            context.read<NewsBloc>().add(GetNewsEvent(
-                  country: SetParameters.getSavedLanguage(),
-                  category: selectedCategory,
-                ));
+                SpiderInheritance.of<NewsBloc>(context).add(GetNewsEvent(
+                      country: SetParameters.getSavedLanguage(),
+                      category: selectedCategory));
             await SetParameters.saveCategory(selectedCategory);
           },
         ),

@@ -1,6 +1,4 @@
-part of 'news_bloc.dart';
 
-@immutable
 abstract class NewsEvent {
   const NewsEvent();
 }
@@ -17,4 +15,3 @@ class GetSavedLocallyNews extends NewsEvent {
 
   const GetSavedLocallyNews({required this.category});
 }
-

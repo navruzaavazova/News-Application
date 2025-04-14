@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/config/router/app_router.dart';
 import 'package:news_app/core/constants/app_route_names.dart';
 import 'package:news_app/core/local/local_database_set_up.dart';
 import 'package:news_app/core/local/set_parameters.dart';
+import 'package:news_app/core/provider/spider_provider/spider_provider.dart';
 import 'package:news_app/presentation/main/bloc/news_bloc.dart';
 
 void main() async {
@@ -22,8 +22,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => NewsBloc(),
+    return SpiderProvider<NewsBloc>(
+      create: () => NewsBloc(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

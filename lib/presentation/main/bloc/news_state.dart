@@ -1,6 +1,7 @@
-part of 'news_bloc.dart';
 
-@immutable
+import 'package:equatable/equatable.dart';
+import 'package:news_app/data/models/article_model.dart';
+
 abstract class NewsState extends Equatable{
   const NewsState();
 

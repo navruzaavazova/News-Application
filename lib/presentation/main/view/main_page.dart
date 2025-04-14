@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/components/navigation_bar_components/nav_bar.dart';
 import 'package:news_app/core/local/set_parameters.dart';
+import 'package:news_app/core/provider/spider_provider/spider_inheritance/spider_inheritance.dart';
 import 'package:news_app/presentation/archive/view/archive_page.dart';
 import 'package:news_app/presentation/home/view/home_page.dart';
 import 'package:news_app/presentation/main/bloc/news_bloc.dart';
+import 'package:news_app/presentation/main/bloc/news_event.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -28,52 +30,7 @@ class _MainPageState extends State<MainPage> {
           style: TextStyle(
               color: Colors.red, fontWeight: FontWeight.bold, fontSize: 30),
         ),
-        actions: [
-          PopupMenuButton<String>(
-            color: const Color.fromARGB(255, 26, 26, 27),
-            icon: const Icon(
-              Icons.language,
-              color: Colors.white,
-            ),
-            onSelected: (String value) async {
-              await SetParameters.saveLanguage(value);
-              context.read<NewsBloc>().add(GetNewsEvent(
-                    country: SetParameters.getSavedLanguage(),
-                    category: SetParameters.getSavedCategory(),
-                  ));
-            },
-            itemBuilder: (BuildContext context) => [
-              const PopupMenuItem(
-                  value: 'us',
-                  child: Text('English 🇺🇸',
-                      style: TextStyle(color: Colors.white))),
-              const PopupMenuItem(
-                  value: 'es',
-                  child: Text('Español 🇪🇸',
-                      style: TextStyle(color: Colors.white))),
-              const PopupMenuItem(
-                  value: 'fr',
-                  child: Text('Français 🇫🇷',
-                      style: TextStyle(color: Colors.white))),
-              const PopupMenuItem(
-                  value: 'de',
-                  child: Text('Deutsch 🇩🇪',
-                      style: TextStyle(color: Colors.white))),
-              const PopupMenuItem(
-                  value: 'zh',
-                  child:
-                      Text('中文 🇨🇳', style: TextStyle(color: Colors.white))),
-              const PopupMenuItem(
-                  value: 'ar',
-                  child: Text('العربية 🇸🇦',
-                      style: TextStyle(color: Colors.white))),
-              const PopupMenuItem(
-                  value: 'ru',
-                  child: Text('Русский 🇷🇺',
-                      style: TextStyle(color: Colors.white))),
-            ],
-          ),
-        ],
+
       ),
       extendBody: true,
       body: PageView(

@@ -1,15 +1,13 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-// ignore: depend_on_referenced_packages
-import 'package:meta/meta.dart';
+
+import 'package:news_app/core/state_management/spider_bloc_custom/spider_bloc_base/spider_bloc.dart';
 import 'package:news_app/data/models/article_model.dart';
 import 'package:news_app/data/repositories/news_repository.dart';
 import 'package:news_app/data/repositories/saved_news_repository.dart';
+import 'package:news_app/presentation/main/bloc/news_event.dart';
+import 'package:news_app/presentation/main/bloc/news_state.dart';
 
-part 'news_event.dart';
-part 'news_state.dart';
 
-class NewsBloc extends Bloc<NewsEvent, NewsState> {
+class NewsBloc extends SpiderBloc<NewsEvent, NewsState> {
   final NewsRepository _newsRepository = NewsRepository();
   final SavedNewsRepository _savedNewsRepository = SavedNewsRepository();
 
@@ -18,7 +16,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     on<GetSavedLocallyNews>(getSavedNews);
   }
 
-  Future<void> getNews(GetNewsEvent event, Emitter<NewsState> emit) async {
+  Future<void> getNews(GetNewsEvent event, emit) async {
     emit(NewsLoading());
     try {
       final articles = await _newsRepository.getNews(
@@ -30,7 +28,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     }
   }
 
-  Future<void> getSavedNews(GetSavedLocallyNews savedEvent, Emitter<NewsState> emit)async{
+  Future<void> getSavedNews(GetSavedLocallyNews savedEvent, emit)async{
     emit(NewsLoading());
     try {
       final savedArticles = _savedNewsRepository.showLocalArticleBySort(savedEvent.category);

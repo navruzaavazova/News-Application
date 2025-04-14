@@ -5,7 +5,11 @@ import 'package:news_app/core/components/home_page_components/custom_tap_bar.dar
 import 'package:news_app/core/components/home_page_components/news_box.dart';
 import 'package:news_app/core/constants/app_string.dart';
 import 'package:news_app/core/local/set_parameters.dart';
+import 'package:news_app/core/provider/spider_provider/spider_inheritance/spider_inheritance.dart';
+import 'package:news_app/core/state_management/spider_bloc_custom/spider_bloc_builder/spider_bloc_builder.dart';
 import 'package:news_app/presentation/main/bloc/news_bloc.dart';
+import 'package:news_app/presentation/main/bloc/news_event.dart';
+import 'package:news_app/presentation/main/bloc/news_state.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,12 +28,12 @@ class _HomePageState extends State<HomePage> {
           const CustomTapBar(
                       categories: AppString.categories,
                     ),
-                    
+
           Expanded(
-            child: BlocBuilder<NewsBloc, NewsState>(
+            child: SpiderBlocBuilder<NewsBloc, NewsState>(
               builder: (context, state) {
                 if (state is NewsInitial) {
-                  context.read<NewsBloc>().add(GetNewsEvent(
+                  SpiderInheritance.of<NewsBloc>(context).add(GetNewsEvent(
                       country: SetParameters.getSavedLanguage(),
                       category: AppString.selectedCategory));
                   return const Center(child: Text('Loading news...'));
